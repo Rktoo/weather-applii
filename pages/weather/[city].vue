@@ -89,10 +89,12 @@
         <div class="!absolute -right-20 md:-right-10 -top-[11.28rem] ">
           <RiveAnimation :width="600" :height="400" src="/rive/rob.riv" class="scale-120" />
         </div>
-         <div class="flex items-center gap-3 mb-8 relative z-10">
-          <MapPin :size="40" :class="themeStore.isDark ? 'text-cyan-400' : 'text-blue-600'" class="pointer-events-none" />
+        <div class="flex items-center gap-3 mb-8 relative z-10">
+          <MapPin :size="40" :class="themeStore.isDark ? 'text-cyan-400' : 'text-blue-600'"
+            class="pointer-events-none" />
           <div class="select-text">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold capitalize pointer-events-auto" :class="themeStore.isDark ? 'text-white' : 'text-gray-900'">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold capitalize pointer-events-auto"
+              :class="themeStore.isDark ? 'text-white' : 'text-gray-900'">
               {{ weather.city }}
             </h1>
             <p class="text-lg pointer-events-auto" :class="themeStore.isDark ? 'text-gray-400' : 'text-gray-600'">
@@ -275,10 +277,35 @@ definePageMeta({
   layout: 'weather'
 })
 
+const config = useRuntimeConfig()
+const pageTitle = computed(() => {
+  if (weather.value?.city) {
+    return `Météo ${weather.value.city} - ${weather.value.temperature}°C en temps réel`
+  }
+  return `Météo de la ville de ${decodeURIComponent(city)}`
+})
+
+const pageDescription = computed(() => {
+  if (weather.value) {
+    return `Météo actuelle à ${weather.value.city}, ${weather.value.country} : ${weather.value.temperature}°C, vent ${weather.value.windspeed} km/h. ${getWeatherDescription(weather.value.weathercode)}.`
+  }
+  return `Consultez les prévisions météo en temps réel pour ${decodeURIComponent(city)}`
+})
+
+const canonicalUrl = `${config.public.siteUrl}/weather/${city}`
+
 useHead({
-  title: `Météo ${weather.value?.city || decodeURIComponent(city)}`,
+  title: pageTitle,
   meta: [
-    { name: 'description', content: `Prévisions météo pour ${weather.value?.city || decodeURIComponent(city)}` }
+    {
+      name: 'description',
+      content: pageDescription
+    },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDescription }
+  ],
+  link: [
+    { rel: 'canonical', href: canonicalUrl }
   ]
 })
 </script>

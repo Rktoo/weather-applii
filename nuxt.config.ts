@@ -4,20 +4,20 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   pages: true,
   ssr: true,
-  
+
   nitro: {
     routeRules: {
       '/weather/**': { swr: 1800 },
       '/api/weather/**': { cache: { maxAge: 1800 } }
     }
   },
-  
   runtimeConfig: {
     public: {
-      apiBaseUrl: 'https://api.open-meteo.com/v1'
+      apiBaseUrl: 'https://api.open-meteo.com/v1',
+      siteUrl: ''
     }
   },
-  
+
   app: {
     head: {
       htmlAttrs: {
