@@ -6,8 +6,11 @@ export default defineNuxtConfig({
   ssr: true,
 
   nitro: {
+    future: {
+      nativeSWR: true
+    },
     routeRules: {
-      '/weather/**': { swr: 1800 },
+      '/weather/**': { isr: 1800 },
       '/api/weather/**': { cache: { maxAge: 1800 } }
     }
   },
