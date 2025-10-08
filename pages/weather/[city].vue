@@ -92,7 +92,7 @@
          <div class="flex items-center gap-3 mb-8 relative z-10">
           <MapPin :size="40" :class="themeStore.isDark ? 'text-cyan-400' : 'text-blue-600'" class="pointer-events-none" />
           <div class="select-text">
-            <h1 class="text-5xl font-bold capitalize pointer-events-auto" :class="themeStore.isDark ? 'text-white' : 'text-gray-900'">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold capitalize pointer-events-auto" :class="themeStore.isDark ? 'text-white' : 'text-gray-900'">
               {{ weather.city }}
             </h1>
             <p class="text-lg pointer-events-auto" :class="themeStore.isDark ? 'text-gray-400' : 'text-gray-600'">
